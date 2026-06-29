@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Fortune</title>
+    <style>
+        body { margin: 0; font-family: -apple-system, sans-serif; background: #07070c; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; }
+        .container { text-align: center; width: 90%; max-width: 360px; display: flex; flex-direction: column; align-items: center; padding: 15px 0; }
+        h1 { font-family: serif; letter-spacing: 3px; margin: 0 0 5px 0; font-size: 26px; }
+        .hint { color: #555; font-size: 11px; margin-bottom: 30px; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* 3D竹筒容器与硬核物理摇晃 */
+        .bamboo-wrapper { width: 150px; height: 230px; cursor: pointer; position: relative; user-select: none; -webkit-tap-highlight-color: transparent; margin-bottom: 25px; }
+        @keyframes hdShake {
+            0%, 100% { transform: rotate(0deg); }
+            15% { transform: rotate(-12deg) translate(-3px, 1px); }
+            30% { transform: rotate(11deg) translate(2px, -1px); }
+            45% { transform: rotate(-8deg) translate(-1px, 2px); }
+            60% { transform: rotate(6deg) translate(1px, 0px); }
+            75% { transform: rotate(-3deg); }
+        }
+        .shake { animation: hdShake 0.5s ease-in-out both; }
+
+        /* 抽签和解签卡片 */
+        #lucky-stick { transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        .draw-stick { transform: translateY(-80px); }
+        .card { margin-top: 5px; padding: 20px; border-radius: 14px; background: rgba(255,255,255,0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: none; text-align: left; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 15px 30px rgba(0,0,0,0.6); width: 100%; box-sizing: border-box; opacity: 0; transform: translateY(10px); transition: 0.3s; }
+        .card.show { display: block; opacity: 1; transform: translateY(0); }
+        .title { font-weight: bold; color: #ffcc66; margin-bottom: 8px; font-size: 17px; }
+        .fortune { font-size: 14px; margin-bottom: 12px; line-height: 1.5; color: #dcdce5; }
+        .action { font-size: 12px; color: #00ff88; font-style: italic; background: rgba(0,255,136,0.05); padding: 5px 10px; border-radius: 5px; display: inline-block; }
+        
+        /* ❤️ 赞助小红心 */
+        .donate-box { margin-top: 35px; padding: 8px 18px; border-radius: 20px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 12px; color: #999; }
+        @keyframes hBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .heart { color: #ff4444; display: inline-block; animation: hBeat 1.2s infinite; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cyber Fortune</h1>
+    <p class="hint">Tap the jar to shake your fate</p>
+    
+    <div class="bamboo-wrapper" id="bamboo-container" onclick="shakeAndDraw()">
+        <svg id="bamboo-svg" viewBox="0 0 200 280" width="100%" height="100%">
+            <defs>
+                <linearGradient id="b-skin" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3d2514"/><stop offset="30%" stop-color="#734926"/><stop offset="50%" stop-color="#96653b"/><stop offset="80%" stop-color="#734926"/><stop offset="100%" stop-color="#2b180a"/></linearGradient>
+                <linearGradient id="s-skin" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#d9c391"/><stop offset="70%" stop-color="#ebdcb4"/><stop offset="100%" stop-color="#b89d63"/></linearGradient>
+                <radialGradient id="i-shadow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#050301"/><stop offset="100%" stop-color="#301c0d"/></radialGradient>
+            </defs>
+            <ellipse cx="100" cy="110" rx="36" ry="10" fill="url(#i-shadow)" />
+            <g id="all-sticks">
+                <rect x="74" y="28" width="4.5" height="135" rx="1" fill="url(#s-skin)" transform="rotate(-6 74 150)"/>
+                <rect x="81" y="23" width="4.5" height="140" rx="1" fill="url(#s-skin)" transform="rotate(-3 81 150)"/>
+                <rect x="87" y="19" width="4.5" height="143" rx="1" fill="url(#s-skin)" transform="rotate(-1 87 150)"/>
+                <rect x="92" y="22" width="4.5" height="141" rx="1" fill="url(#s-skin)" transform="rotate(-4 92 150)"/>
+                <rect x="102" y="21" width="4.5" height="142" rx="1" fill="url(#s-skin)" transform="rotate(-2 102 150)"/>
+                <rect x="107" y="19" width="4.5" height="144" rx="1" fill="url(#s-skin)" transform="rotate(1 107 150)"/>
+                <rect x="113" y="22" width="4.5" height="140" rx="1" fill="url(#s-skin)" transform="rotate(4 113 150)"/>
+                <rect x="119" y="25" width="4.5" height="138" rx="1" fill="url(#s-skin)" transform="rotate(3 119 150)"/>
+                <rect x="124" y="29" width="4.5" height="133" rx="1" fill="url(#s-skin)" transform="rotate(6 124 150)"/>
+                <g id="lucky-stick">
+                    <rect x="98" y="18" width="5.5" height="145" rx="1.5" fill="url(#s-skin)"/>
+                    <rect x="98" y="18" width="5.5" height="22" rx="1" fill="#e63946"/>
+                </g>
+            </g>
+            <path d="M 62 110 L 68 250 C 68 255, 78 259, 100 259 C 122 259, 132 255, 132 250 L 138 110 Z" fill="url(#b-skin)" />
+            <path d="M 62 110 Q 100 123 138 110" fill="none" stroke="#4a2e18" stroke-width="2.5" />
+            <path d="M 64 195 Q 100 206 136 195" fill="none" stroke="#24140a" stroke-width="3" opacity="0.7" />
+            <text x="100" y="162" fill="#1f1006" font-family="serif" font-weight="bold" font-size="11" text-anchor="middle" letter-spacing="2" opacity="0.8">CYBER</text>
+            <text x="100" y="178" fill="#1f1006" font-family="serif" font-weight="bold" font-size="11" text-anchor="middle" letter-spacing="1" opacity="0.8">FORTUNE</text>
+        </svg>
+    </div>
+
+    <div class="card" id="card">
+        <div class="title" id="title"></div>
+        <div class="fortune" id="fortune"></div>
+        <div class="action" id="action"></div>
+    </div>
+
+    <div class="donate-box" onclick="donate()">
+        <span class="heart">❤️</span> Support this app
+    </div>
+</div>
+
+<script>
+var fortunes = [];
+var isShaking = false;
+
+// 自动向同仓库下的 memes.json 抓取最新梗
+fetch('memes.json')
+    .then(response => response.json())
+    .then(data => { fortunes = data; })
+    .catch(err => console.error("Error loading memes:", err));
+
+function shakeAndDraw() {
+    if (isShaking || fortunes.length === 0) return;
+    isShaking = true;
+
+    var wrapper = document.getElementById("bamboo-container");
+    var luckyStick = document.getElementById("lucky-stick");
+    var card = document.getElementById("card");
+    
+    wrapper.classList.remove("shake"); luckyStick.classList.remove("draw-stick"); card.classList.remove("show");
+    void wrapper.offsetWidth;
+    wrapper.classList.add("shake");
+    
+    setTimeout(function() { luckyStick.classList.add("draw-stick"); }, 350);
+    
+    setTimeout(function() {
+        var idx = Math.floor(Math.random() * fortunes.length);
+        var item = fortunes[idx];
+        document.getElementById("title").innerText = item.category + " · " + item.title;
+        document.getElementById("fortune").innerText = item.fortuneText;
+        document.getElementById("action").innerText = "💡 Lucky Action: " + item.luckyAction;
+        card.classList.add("show");
+        isShaking = false;
+    }, 900);
+}
+function donate() { window.open("https://www.buymeacoffee.com/", "_blank"); }
+</script>
+
+</body>
+</html>
