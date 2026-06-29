@@ -1,0 +1,74 @@
+[
+  {
+    "category": "Code",
+    "title": "Prod Miracle",
+    "fortuneText": "Your code compiled on the first try with zero warnings. You are deeply suspicious it's a trap.",
+    "luckyAction": "Don't touch anything and slowly walk away."
+  },
+  {
+    "category": "Love",
+    "title": "Deep Delusion",
+    "fortuneText": "You think they are carefully typing a paragraph back to you. In reality, their screen is just stuck on 'is typing...'.",
+    "luckyAction": "Overthink for 6 hours, then go to sleep."
+  },
+  {
+    "category": "Money",
+    "title": "Quantum Wallet",
+    "fortuneText": "Your wealth is like quantum physics. When you don't check your bank balance, you feel rich. When you look, it collapses.",
+    "luckyAction": "Uninstall banking apps to stay wealthy."
+  },
+  {
+    "category": "Work",
+    "title": "Friday Surprise",
+    "fortuneText": "At 4:59 PM on Friday, you will find a critical bug that only you know how to fix, but you really don't want to.",
+    "luckyAction": "Activate airplane mode and run."
+  },
+  {
+    "category": "Health",
+    "title": "Calorie Illusion",
+    "fortuneText": "今天点了一杯全糖奶茶。只要你在心里默念三遍“去冰等于零卡”，热量就追不上你。",
+    "luckyAction": "放心喝，欺骗一下大脑就行。"
+  },
+  {
+    "category": "Chaos",
+    "title": "Social Ghost",
+    "fortuneText": "你发了一个自认为非常幽默的表情包到群里，结果换来了长达45分钟的死寂。",
+    "luckyAction": "假装是手滑发错群了。"
+  },
+  {
+    "category": "Life",
+    "title": "Sleep Loop",
+    "fortuneText": "你决定 11 点准时睡觉。当你刷完最后一个视频准备关机时，天已经亮了。",
+    "luckyAction": "别挣扎了，接受自己是个夜行生物的事实。"
+  },
+  {
+    "category": "Game",
+    "title": "Gacha Despair",
+    "fortuneText": "你把积攒已久的抽卡资源全部砸进新卡池，结果只换来了一堆重复的 3 星垃圾。",
+    "luckyAction": "卸载游戏 10 分钟，然后再装回来。"
+  },
+  {
+    "category": "Food",
+    "title": "Late Night Hunger",
+    "fortuneText": "凌晨 2 点的泡面香气足以让任何健身计划瞬间崩塌。",
+    "luckyAction": "加个蛋，这样就算半个健康餐了。"
+  },
+  {
+    "category": "Tech",
+    "title": "Browser Hell",
+    "fortuneText": "你的电脑风扇已经开始起飞，但你还是舍不得关掉那 47 个未读的网页标签。",
+    "luckyAction": "重启大法好，重启之后就不用面对了。"
+  },
+  {
+    "category": "Social",
+    "title": "Reply Phobia",
+    "fortuneText": "你看到了一条重要消息，但因为太紧张，你决定把它标记为未读，假装它不存在。",
+    "luckyAction": "假装没看见，只要我不回，就没发生过。"
+  },
+  {
+    "category": "Motivation",
+    "title": "Procrastination King",
+    "fortuneText": "你今天的任务列表里有 10 件事，但你却在研究如何高效地处理任务列表，导致一件都没做。",
+    "luckyAction": "再写一个“写任务列表”的任务安慰自己。"
+  }
+]
